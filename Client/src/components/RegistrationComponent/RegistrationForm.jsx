@@ -43,6 +43,9 @@ const RegistrationForm = () => {
                             <label htmlFor="userName"></label>
                             <input type="text" className='input-field' name='userName' id='userName' autoComplete='off' value={state.userName} onChange={(e) => {setValue("userName", e.target.value)}} placeholder="Enter Your userName"/>
                         </div>
+                        <div>
+                            Welcome to Sociaty.IO
+                        </div>
 
                         <div className="form-group">
                             <label htmlFor="password"></label>
