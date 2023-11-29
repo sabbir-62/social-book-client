@@ -1,0 +1,23 @@
+
+.text{
+    width: 25rem;
+    padding: 0 1rem 0 4rem;
+}
+
+.text h1{
+    font-weight: 900;
+    font-size: 50px;
+    color: #1778F2
+}
+
+.text p{
+    font-weight: 600;
+    color: gray;
+    font-size: 17px;
+}
+
+
+.form-group{
+    width: 100%;
+    border: 2px solid red;
+}
