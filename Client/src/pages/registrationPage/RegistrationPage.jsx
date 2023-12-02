@@ -6,7 +6,7 @@ import RegistrationForm from "../../components/RegistrationComponent/Registratio
 
 const RegistrationPage = () => {
     return (
-        <div className="container">
+        <div className={`container ${styles.container}`}>
             <div className={styles.content}>
                 <div className={styles.box}>
                     <div className={styles.box1}>
