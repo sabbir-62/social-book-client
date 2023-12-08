@@ -2,16 +2,21 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Styles from './registration.module.css'
+import { toast } from 'react-toastify';
+
+
+
 
 const RegistrationForm = () => {
-
+    // state initialization
     const [state, setState] = useState({
-        name: '',
+        firstName: '',
+        lastName: '',
         email: '',
-        userName: '',
         password: ''
     })
 
+    // set input value into state
     const setValue = (key, value) => {
         setState({
             ...state,
@@ -19,9 +24,38 @@ const RegistrationForm = () => {
         }) 
     }
 
-    const handleSubmit = () => {
+    
 
-        alert("Registration Page")
+    // submit input values into backend using fetch api
+    const handleSubmit = async () => {
+        const url = 'http://localhost:8000/api/v1/registration';
+        const {firstName, lastName, email, password} = state
+        try{ 
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type' : 'application/json'
+                },
+                body: JSON.stringify({
+                    firstName,
+                    lastName,
+                    email,
+                    password
+                })
+            })
+
+            const data = await response.json()
+
+            if(data.success){
+                toast.success(data.message)
+            } 
+            else{
+                toast.error(data.message)
+            } 
+        }
+        catch(error){
+            console.log("Error", error)
+        }
     }
 
     const navigate = useNavigate()
@@ -32,7 +66,7 @@ const RegistrationForm = () => {
         <>
             <div className={`${Styles.registrationPage}, ${Styles.minHeight}`}>
                 <div className={`${Styles.container}, ${Styles.login}`}>
-                    <form className={Styles.registrationForm} method='POST' onSubmit={handleSubmit}>
+                    <div className={Styles.registrationForm}>
 
                         <div className={Styles.formGroup}>
                             <label htmlFor="firstName"></label>
@@ -56,12 +90,12 @@ const RegistrationForm = () => {
 
                         <div className={Styles.formGroup}>
                             <div className={Styles.button}>
-                                <button type="submit" className={`${Styles.registrationBtn} btn btn-primary`}>Submit</button>
+                                <button type="submit" className={`${Styles.registrationBtn} btn btn-primary`} onClick={handleSubmit}>Submit</button>
                                 <button className={`btn btn-primary ${Styles.loginBtn}`} onClick={loginPage}>Already a user</button>
                             </div>
                         </div>
 
-                    </form>
+                    </div>
                 </div>
             </div>
         </>
